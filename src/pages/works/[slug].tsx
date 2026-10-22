@@ -1,25 +1,22 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import useSWR from 'swr'
 import { TWorksData } from '@/data/works'
 import WorkDetail from '@/views/work-detail'
-import Loading from '@/components/loading/loading'
 import { getAllWorks, getWorkDetail } from '@/data/content'
 import Close from '@/views/layout/close'
 import Header from '@/views/layout/header'
 import Footer from '@/views/layout/footer'
-import { ROUTE_HOSTORY_KEY } from '@/hooks/router-history'
+import { useRouteHistoryList } from '@/hooks/router-history'
 
 type Props = {
   slug: string
-  workData: TWorksData & { next: TWorksData }
+  workData: TWorksData
 }
 
 export default function WorkDetailPage({ workData: data }: Props) {
-  const { data: routeHistory } = useSWR<string[]>(ROUTE_HOSTORY_KEY)
+  const routeHistory = useRouteHistoryList()
 
   return (
     <>
-      <Loading isLoading={!data} />
       <Close href={routeHistory?.[routeHistory.length - 2]} />
       <Header/>
       {!!data && <WorkDetail data={data} />}

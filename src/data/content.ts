@@ -9,7 +9,7 @@ import fs from 'fs'
 import path from 'path'
 import { parse as parseYaml } from 'yaml'
 import { parseMarkdown } from './markdown'
-import { THomeWorks, TWorksData } from './works'
+import { THomeWorks, TWorkSummary, TWorksData } from './works'
 import { withBasePath } from '@/utils/base-path'
 
 const CONTENT = path.join(process.cwd(), 'content')
@@ -80,15 +80,13 @@ export async function getAllWorks(): Promise<TWorksData[]> {
   return worksData
 }
 
+// Only the fields the list pages show, so they don't embed every work's text.
+export async function getWorkSummaries(): Promise<TWorkSummary[]> {
+  return (await getAllWorks()).map(({ slug, title, subTitle, src, categories }) => ({ slug, title, subTitle, src, categories }))
+}
+
 export async function getWorkDetail(slug: string) {
-  const data = await getAllWorks()
-  const index = data.findIndex(d => d.slug === slug)
-  if (index === -1) return null
-  const next = index + 1 < data.length ? index + 1 : 0
-  return {
-    ...data[index],
-    next: data[next],
-  }
+  return (await getAllWorks()).find(d => d.slug === slug) || null
 }
 
 export async function getHomeWorks(): Promise<THomeWorks[]> {

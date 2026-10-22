@@ -38,6 +38,7 @@ export default function VideoSection({
           <iframe
             className="w-full h-full"
             src={videoUrl}
+            loading="lazy"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -54,7 +55,7 @@ export default function VideoSection({
               exit={{ opacity: 0, transition: { delay: 1, duration: 0.5 }}}
               className={`${videoUrl ? styles.videoCover : ''} absolute inset-0`}
             >
-              <Image src={cover} alt="" layout="fill" />
+              <Image src={cover} alt="" fill sizes="100vw" />
             </motion.div>
           )
         }

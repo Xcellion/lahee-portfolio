@@ -4,6 +4,7 @@ import TextSection from './text-section'
 import VideoSection from './video-section'
 import Start from '../layout/start'
 import InView from '@/components/in-view'
+import { responsiveImage } from '@/utils/image'
 
 type Props = {
   data: TWorksData
@@ -33,7 +34,7 @@ export default function WorkDetail({ data }: Props) {
           data.introductionImages.map((src) => (
             <InView withOpacity={false} className="container" key={src}>
               <div className="relative aspect-video py-16 px-6 md:px-36 md:py-40">
-                <img src={src} alt="" className="w-full mx-auto" />
+                <img {...responsiveImage(src)} alt="" className="w-full mx-auto" loading="lazy" decoding="async" />
               </div>
             </InView>
           ))
@@ -44,7 +45,7 @@ export default function WorkDetail({ data }: Props) {
         {
           data.overviewAndHypothesisImages?.map((img, index) => (
             <InView withOpacity={false} key={index} className="flex mb-16 md:mb-40">
-              <img src={img} alt="" />
+              <img {...responsiveImage(img)} alt="" loading="lazy" decoding="async" />
             </InView>
           ))
         }
@@ -54,7 +55,7 @@ export default function WorkDetail({ data }: Props) {
         {
           data.solutionImages?.map((src, index) => (
             <InView withOpacity={false} key={index} className="flex mb-16 md:mb-40">
-              <img src={src} alt="" />
+              <img {...responsiveImage(src)} alt="" loading="lazy" decoding="async" />
             </InView>
           ))
         }
@@ -64,7 +65,7 @@ export default function WorkDetail({ data }: Props) {
         {
           !!data.impactAndLearningImage && (
             <InView withOpacity={false} className="mb-32 md:mb-40 max-w-5xl mx-auto px-10 md:px-0">
-              <img src={data.impactAndLearningImage} alt="" />
+              <img {...responsiveImage(data.impactAndLearningImage, '(min-width: 1024px) 1024px, 100vw')} alt="" loading="lazy" decoding="async" />
             </InView>
           )
         }

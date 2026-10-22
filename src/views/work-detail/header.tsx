@@ -28,7 +28,7 @@ export default function Header({ slug, title, src, services, date, client, url, 
       <div className="container relative">
         <InView mount delay={0.6} className={styles.image}>
           <motion.div >
-            <Image src={src} width={860} height={560} alt="" />
+            <Image src={src} width={860} height={560} alt="" priority />
           </motion.div>
           {/* {
             !!url && (

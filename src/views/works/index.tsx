@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import Menu from './menu'
 import List from './list'
-import { getCategoryLabel, TWorksData } from '@/data/works'
+import { getCategoryLabel, TWorkSummary } from '@/data/works'
 import { useRouter } from 'next/router'
 import InView from '@/components/in-view'
 
 type Props = {
-  worksData: TWorksData[]
+  worksData: TWorkSummary[]
 }
 
 export default function Works({ worksData }: Props) {

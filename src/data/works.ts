@@ -28,6 +28,9 @@ export type TWorksData = {
   impactAndLearningImage: string
 }
 
+// What the home and works list pages need from each work.
+export type TWorkSummary = Pick<TWorksData, 'slug' | 'title' | 'subTitle' | 'src' | 'categories'>
+
 export const CATEGORIES = [
   { slug: 'ux-product-design', label: 'UX/Product Design' },
   { slug: 'visual-design', label: 'Visual Design' },

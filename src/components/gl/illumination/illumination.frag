@@ -8,8 +8,6 @@ uniform vec3 uColorAccent;
 
 varying vec2 v_coordinates;
 
-#include <common>
-
 #pragma glslify: snoise = require(glsl-noise/simplex/2d)
 
 float random(vec2 co) {

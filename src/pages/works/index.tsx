@@ -1,8 +1,7 @@
 import { GetStaticProps } from 'next'
 import Works from '@/views/works'
-import { getAllWorks } from '@/data/content'
-import Loading from '@/components/loading/loading'
-import { TWorksData } from '@/data/works'
+import { getWorkSummaries } from '@/data/content'
+import { TWorkSummary } from '@/data/works'
 import Start from '@/views/layout/start'
 import Close from '@/views/layout/close'
 import InView from '@/components/in-view'
@@ -10,14 +9,13 @@ import Header from '@/views/layout/header'
 import Footer from '@/views/layout/footer'
 
 type Props = {
-  workData: TWorksData[]
+  workData: TWorkSummary[]
 }
 
 export default function WorksPage({ workData: data }: Props) {
 
   return (
     <>
-      <Loading isLoading={!data} />
       <Close href="/" />
       <Header />
       {!!data && <Works worksData={data} />}
@@ -32,7 +30,7 @@ export default function WorksPage({ workData: data }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const data = await getAllWorks()
+  const data = await getWorkSummaries()
   if (!data) {
     return {
       notFound: true,

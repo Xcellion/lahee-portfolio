@@ -5,20 +5,19 @@ import Partner from '@/views/home/partner'
 // import Imagination from '@/views/home/imagination'
 import Start from '@/views/layout/start'
 
-import Loading from '@/components/loading/loading'
-import { getAllWorks, getHomeWorks } from '@/data/content'
+import { getHomeWorks, getWorkSummaries } from '@/data/content'
 import Purpose from '@/views/home/purpose'
 import Skills from '@/views/home/skills'
 import Menu from '@/views/home/menu'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import InView from '@/components/in-view'
-import { THomeWorks, TWorksData } from '@/data/works'
+import { THomeWorks, TWorkSummary } from '@/data/works'
 import Header from '@/views/layout/header'
 import Footer from '@/views/layout/footer'
 
 type Props = {
-  workData: TWorksData[]
+  workData: TWorkSummary[]
   homeData: THomeWorks[]
 }
 
@@ -27,7 +26,6 @@ export default function Home({ workData: worksData, homeData: data }: Props) {
 
   return (
     <>
-      <Loading isLoading={!data} />
       <Menu inViewContent={inViewContent} onClick={setInViewContent} />
       {
         !!data && (
@@ -70,7 +68,7 @@ export default function Home({ workData: worksData, homeData: data }: Props) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const homeData = await getHomeWorks()
-  const workData = await getAllWorks()
+  const workData = await getWorkSummaries()
 
   if (!homeData || !workData) {
     return {

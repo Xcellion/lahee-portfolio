@@ -1,52 +1,32 @@
-import { Suspense } from 'react'
-import { Canvas } from '@react-three/fiber'
-
-// import ScrollImage from './scroll-image'
-// import TrakingImage from './traking-image'
-// import Reflection from './reflection'
-import CanvasCtx from '../../contexts/canvas.context'
-import Illumination from './illumination'
+import { useEffect, useRef } from 'react'
+import CanvasCtx, { workHeaderBgData } from '../../contexts/canvas.context'
+import type { TIllumination } from './illumination'
 
 const GLBackground = () => {
-  const {
-    // scrollImage,
-    // trakingImage,
-    isIllumination,
-    mouse,
-    // mouseVelocity,
-    // scrollVelocity,
-    // imaginationScroll,
-  } = CanvasCtx.useContainer()
+  const { isIllumination } = CanvasCtx.useContainer()
+  const canvas = useRef<HTMLCanvasElement>(null)
+  const illumination = useRef<TIllumination | null>(null)
+
+  useEffect(() => () => illumination.current?.destroy(), [])
+
+  useEffect(() => {
+    if (!isIllumination) {
+      illumination.current?.stop()
+      return
+    }
+    let cancelled = false
+    // Only work pages show it, so the shader code loads on first use.
+    import('./illumination').then(({ createIllumination }) => {
+      if (cancelled || !canvas.current) return
+      illumination.current ??= createIllumination(canvas.current, () => workHeaderBgData.colors)
+      illumination.current?.start()
+    })
+    return () => { cancelled = true }
+  }, [ isIllumination ])
+
   return (
     <div className="fixed w-screen h-screen z-[-1]">
-      <Canvas gl={{ alpha: true }}>
-        {/* <Reflection mouse={mouse} imaginationScroll={imaginationScroll} /> */}
-        {
-          isIllumination && <Illumination mouse={mouse} />
-        }
-        {/* {
-          scrollImage.map((s) => (
-            <Suspense key={`image-link-scroll-${s.id}`} fallback={null}>
-              <ScrollImage
-                src={s.src}
-                id={s.id}
-                velocity={scrollVelocity}
-              />
-            </Suspense>
-          ))
-        } */}
-        {/* {
-          trakingImage.map((s) => (
-            <Suspense key={`image-link-traking-${s.id}`} fallback={null}>
-              <TrakingImage
-                src={s.src}
-                id={s.id}
-                velocity={mouseVelocity}
-              />
-            </Suspense>
-          ))
-        } */}
-      </Canvas>
+      <canvas ref={canvas} style={{ display: 'block', width: '100%', height: '100%' }} />
     </div>
   )
 }

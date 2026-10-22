@@ -14,7 +14,10 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    unoptimized: true,
+    // Work images are pre-resized by scripts/build-images.mjs.
+    loader: 'custom',
+    loaderFile: './src/utils/image-loader.ts',
+    deviceSizes: [ 640, 960, 1280, 1920, 2560 ],
   },
 }
 

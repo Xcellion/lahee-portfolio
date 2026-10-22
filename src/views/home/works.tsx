@@ -1,7 +1,7 @@
 // import WorksItem from './works-item'
 import InView from '@/components/in-view'
 import ListItem from '../works/item'
-import { THomeWorks, TWorksData } from '@/data/works'
+import { THomeWorks, TWorkSummary } from '@/data/works'
 import { useMemo } from 'react'
 // import Image from 'next/image'
 // import { useCallback, useRef, useState } from 'react'
@@ -11,13 +11,13 @@ import { useMemo } from 'react'
 // import clsx from 'clsx'
 
 type Props = {
-  workData: TWorksData[]
+  workData: TWorkSummary[]
   homeData: THomeWorks[]
 }
 
 export default function Works({ workData, homeData }: Props) {
   const list = useMemo(() => {
-    const data: TWorksData[] = []
+    const data: TWorkSummary[] = []
     for (let i = 0; i < homeData.length; i++) {
       const work = workData?.find((work) => work.slug === homeData[i].href.replace('works/', ''))
       if (!work) {

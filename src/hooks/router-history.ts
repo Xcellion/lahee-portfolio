@@ -1,17 +1,25 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import useSWR from 'swr'
+import { useEffect, useSyncExternalStore } from 'react'
 
-export const ROUTE_HOSTORY_KEY  = '/router-history'
+// Paths visited in this tab, so a work page's close button can go back to
+// wherever the visitor came from.
+let history: string[] = []
+const listeners = new Set<() => void>()
+const subscribe = (listener: () => void) => {
+  listeners.add(listener)
+  return () => { listeners.delete(listener) }
+}
+const EMPTY: string[] = []
+
+export function useRouteHistoryList() {
+  return useSyncExternalStore(subscribe, () => history, () => EMPTY)
+}
 
 export default function useRouteHistory() {
   const router = useRouter()
-  const { data, mutate } = useSWR<string[]>(ROUTE_HOSTORY_KEY)
 
   useEffect(() => {
-    mutate(
-      data ? [ ...data, router.asPath ] : [ router.asPath ],
-      false
-    )
+    history = [ ...history, router.asPath ]
+    listeners.forEach((listener) => listener())
   }, [ router.asPath ])
 }

@@ -1,10 +1,10 @@
-import { TWorksData, getCategoryLabel } from '@/data/works'
+import { TWorkSummary, getCategoryLabel } from '@/data/works'
 import { useMemo } from 'react'
 import ListItem from './item'
 import InView from '@/components/in-view'
 
 type Props = {
-  works: TWorksData[]
+  works: TWorkSummary[]
   active: string
 }
 
