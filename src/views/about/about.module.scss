@@ -1,0 +1,47 @@
+.header {
+  @apply mb-20 md:mb-40 pt-14 md:pt-32 px-0;
+
+  h1,
+  h2 {
+    @apply text-5xl md:text-8xl lg:text-9xl font-extrabold text-center;
+  }
+
+  h1 {
+    @apply font-extrabold mb-4 md:mb-8;
+  }
+  h2 {
+    @apply font-bold;
+
+  }
+}
+
+.outlineText {
+  color: white;
+  // text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  text-shadow: #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px,
+  #000 0px 0px 2px,   #000 0px 0px 2px,   #000 0px 0px 2px;
+}
+
+.link {
+  @apply block font-bold relative leading-none py-2;
+
+  &::before {
+    content: "";
+    border: .25rem solid transparent;
+    @apply inline-block border-l-black align-middle mr-1;
+  }
+}
+
+.history {
+  @apply text-base leading-[1.75rem] mb-4 md:mb-10
+}
+

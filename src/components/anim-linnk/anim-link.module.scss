@@ -1,0 +1,23 @@
+.textWrap {
+  @apply relative inline-block overflow-hidden;
+}
+
+.text {
+  @apply relative block;
+
+  + .text {
+    @apply absolute top-full;
+  }
+
+  > span {
+    @apply inline-block;
+    transition: .4s cubic-bezier(.77, 0, .175, 1);
+  }
+}
+.a {
+  &:hover {
+    .text > span {
+      transform: translate3d(0, -100%, 0);
+    }
+  }
+}

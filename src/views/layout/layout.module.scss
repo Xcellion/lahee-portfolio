@@ -1,0 +1,93 @@
+.navBlock {
+  @apply block;
+  @media (max-width: 767px) {
+    @apply fixed bg-black w-screen top-0 bottom-0 -right-full z-40;
+    transition: .8s cubic-bezier(.77, 0, .175, 1);
+
+    &.open {
+      @apply visible right-0 bg-black;
+    }
+  }
+}
+
+.nav {
+  @apply pt-20 md:pt-0 pl-2 md:pl-0;
+  ul {
+    @apply relative md:flex;
+  }
+
+  a {
+    @apply inline-block font-bold py-4 px-8 relative text-white uppercase text-4xl;
+  }
+
+  @media (min-width: 768px) {
+    a {
+      @apply block py-10 px-8 text-black text-base;
+
+      &::before {
+        @apply absolute w-2 h-2 block bg-transparent rounded-full -ml-1 transition-colors;
+        top: 1.5rem;
+        left: 50%;
+        content: "";
+      }
+    }
+    .active a::before {
+      @apply bg-black;
+    }
+  }
+}
+
+.navFooter {
+  @apply md:hidden absolute bottom-0 left-0 py-5 px-4 border-t border-t-gray-600 w-full;
+
+  ul {
+    @apply leading-none;
+  }
+
+  a {
+    @apply block text-white py-3 text-sm font-bold;
+  }
+
+  aside {
+    @apply pt-8 text-white font-normal;
+  }
+}
+
+.navMenu {
+  @apply block md:hidden relative w-8 h-8 z-50;
+
+  &::before,
+  &::after {
+    /* stylelint-disable-next-line number-leading-zero */
+    @apply absolute block bg-black w-6 h-0.5 left-1 transition-transform;
+    content: "";
+  }
+  &::before {
+    @apply top-2.5;
+  }
+  &::after {
+    @apply top-5;
+  }
+
+  &.open {
+    &::before,
+    &::after {
+      @apply bg-white top-4;
+    }
+    &::before {
+      @apply rotate-45;
+    }
+    &::after {
+      @apply -rotate-45;
+    }
+  }
+}
+
+.cursor {
+  @apply absolute top-0 left-0 z-50 w-2.5 h-2.5 -ml-2.5 -mt-2.5 mix-blend-difference pointer-events-none;
+
+  &::after {
+    @apply absolute top-0 left-0 w-full h-full bg-white rounded-full;
+    content: "";
+  }
+}

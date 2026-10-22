@@ -1,0 +1,31 @@
+.textWrap {
+  @apply relative inline-block overflow-hidden;
+}
+
+.text {
+  @apply relative block;
+
+  + .text {
+    @apply absolute top-full;
+  }
+
+  > span {
+    @apply inline-block;
+    transition: .4s cubic-bezier(.77, 0, .175, 1);
+  }
+}
+.activetext > span {
+  transform: translate3d(4px, -50%, 50px) rotate(.7deg) rotateY(15.7deg) rotateX(90deg);
+}
+@media (min-width: 768px) {
+  .rotate {
+    &:hover {
+      .text > span {
+        transform: translate3d(-4px, -50%, 50px) rotate(.7deg) rotateY(15.7deg) rotateX(90deg);
+      }
+      .activetext > span {
+        transform: translate3d(0, -100%, 0) rotate(0) rotateX(0) rotateY(0);
+      }
+    }
+  }
+}
