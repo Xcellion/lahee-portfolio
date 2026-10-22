@@ -114,6 +114,8 @@ A paragraph. Leave a blank line between paragraphs.
 - A `\` at the end of a line is a line break inside the same paragraph
   (a line with only `\` makes an empty line).
 - `<p></p>` on its own adds an empty paragraph for extra space.
+- `<span>text</span>` makes the larger label text used in the stats list
+  that opens some sections (see `content/works/teamlab-art-story-of-the-forest.md`).
 - Lines starting with `- ` are bullet points. To continue a bullet on
   another paragraph, indent that paragraph by two spaces.
 
