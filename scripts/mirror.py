@@ -164,11 +164,24 @@ def mirror_site():
     write('/.nojekyll', '')
 
 
+def fetch_or_report(url, failures):
+    try:
+        return fetch(url)
+    except Exception as e:  # report every failure, not just the first
+        # ::error:: lines show up as annotations when this runs in GitHub Actions.
+        print('::error::%s %s' % (url.split('?')[0], e))
+        failures.append(url)
+        return None
+
+
 def mirror_storyblok():
+    failures = []
     for path, params in STORYBLOK_CALLS:
         url = STORYBLOK_API + path + '?' + urllib.parse.urlencode(dict(params, token=STORYBLOK_TOKEN))
-        write('/storyblok-api/' + api_key(path, params), fetch(url))
-        print('api', path)
+        data = fetch_or_report(url, failures)
+        if data is not None:
+            write('/storyblok-api/' + api_key(path, params), data)
+            print('api', path)
 
     urls = set()
     for root, _, files in os.walk(SITE):
@@ -180,8 +193,10 @@ def mirror_storyblok():
                 urls.update(STORYBLOK_ASSETS + 'f/' + u for u in re.findall(r'"/storyblok/f/([^"\\]+)"', text))
                 urls.update(STORYBLOK_ASSETS + 'f/' + u for u in re.findall(r'="/storyblok/f/([^"]+)"', text))
     for url in sorted(urls):
-        write('/storyblok/' + url[len(STORYBLOK_ASSETS):], fetch(url))
-    print('storyblok assets', len(urls))
+        data = fetch_or_report(url, failures)
+        if data is not None:
+            write('/storyblok/' + url[len(STORYBLOK_ASSETS):], data)
+    print('storyblok assets', len(urls) - len(failures))
 
     # Point the saved pages at the local copies (no-op if already done).
     for root, _, files in os.walk(SITE):
@@ -189,6 +204,8 @@ def mirror_storyblok():
             if name.endswith(('.html', '.json')) and 'storyblok-api' not in root:
                 rel = os.path.relpath(os.path.join(root, name), SITE)
                 write(rel, read(rel).decode().replace(STORYBLOK_ASSETS, '/storyblok/'))
+    if failures:
+        sys.exit('%d Storyblok downloads failed' % len(failures))
 
 
 def main():
