@@ -31,10 +31,10 @@ impactAndLearningImage: "003_7.png"
 
 ## Introduction
 
-**Role**\
-Senior Product Designer\
+<span>**Role**</span>\
+<span>Senior Product Designer</span>\
 \
-**Project Space**\
+<span>**Project Space**</span>\
 Loyalty Program Digital Transformation\
 0-1 Projects\
 B2C\
@@ -72,19 +72,19 @@ The app was optimized to replace traditional plastic cards, enabling members to 
 
 ## Impact and learning
 
-- Activation 
+- <span>Activation </span>
 
   **+300%**
 
-- App MAUs
+- <span>App MAUs</span>
 
   **+75%**
 
-- App Downloads
+- <span>App Downloads</span>
 
   **1M+**
 
-- Media Coverage
+- <span>Media Coverage</span>
 
   **500+**
 

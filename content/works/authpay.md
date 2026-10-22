@@ -31,6 +31,7 @@ solutionImages:
   - "018_6.png"
   - "018_7.png"
   - "018_8.png"
+  - ""
 impactAndLearningImage: "018_10.png"
 ---
 

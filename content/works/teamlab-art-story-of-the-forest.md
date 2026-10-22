@@ -73,11 +73,11 @@ The app reflected the forest’s serene aesthetics and synchronized with the exh
 
 ## Impact and learning
 
-- Exhibition Duration
+- <span>Exhibition Duration</span>
 
-  **8 years**
+  <span>**8 years**</span>
 
-- Annual Visitor Growth
+- <span>Annual Visitor Growth</span>
 
   **160%**
 

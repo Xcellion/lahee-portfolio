@@ -8,10 +8,11 @@
  *   - item            bullet list item (indent following lines, or a following
  *                     blank-line-separated block, by two spaces to continue it)
  *   **bold**  *italic*
+ *   <span>text</span>  larger text (the labels in a section's opening stats list)
  *   <p></p>           an empty paragraph (extra spacing)
  */
 
-export type TMark = { type: 'bold' | 'italic' }
+export type TMark = { type: 'bold' | 'italic' | 'span' }
 export type TNode = {
   type: 'doc' | 'paragraph' | 'bullet_list' | 'list_item' | 'text' | 'hard_break'
   text?: string
@@ -40,6 +41,9 @@ function parseInline(source: string): TNode[] {
     const c = source[i]
     if (c === '\\' && i + 1 < source.length) {
       text += source[++i]
+    } else if (source.startsWith('<span>', i) || source.startsWith('</span>', i)) {
+      toggle('span')
+      i = source.indexOf('>', i)
     } else if (source.startsWith('**', i)) {
       toggle('bold')
       i++

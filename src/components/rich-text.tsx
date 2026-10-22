@@ -13,8 +13,9 @@ function render(node: TNode, key?: number): ReactNode {
   case 'hard_break': return <br key={key} />
   case 'text': return (
     <Fragment key={key}>
-      {(node.marks || []).reduceRight<ReactNode>(
-        (inner, mark) => mark.type === 'bold' ? <strong>{inner}</strong> : <em>{inner}</em>,
+      {/* Like Storyblok, each mark wraps the ones before it; a span goes outside. */}
+      {[ ...(node.marks || []) ].sort((a, b) => +(a.type === 'span') - +(b.type === 'span')).reduce<ReactNode>(
+        (inner, mark) => mark.type === 'span' ? <span>{inner}</span> : mark.type === 'bold' ? <strong>{inner}</strong> : <em>{inner}</em>,
         node.text,
       )}
     </Fragment>
