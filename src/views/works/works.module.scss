@@ -1,0 +1,41 @@
+.menu {
+  @apply relative md:sticky md:top-0 md:pt-[3rem] z-[5];
+  .activeMenu,
+  a {
+    @apply flex font-medium text-base leading-[1.5rem] mb-4 items-center md:opacity-40 transition-all duration-200 ease-in-out;
+    &.active {
+      @apply md:opacity-100 font-bold;
+    }
+    &:hover {
+      @apply text-[#000] opacity-100;
+    }
+  }
+
+  .activeMenu {
+    @apply relative block md:hidden w-full text-left py-4 px-5 border-b border-b-black;
+    &::after {
+      content: "";
+      border: .4rem solid transparent;
+      @apply absolute block right-5 top-1/2 border-t-black;
+    }
+    &.open::after {
+      @apply rotate-180 top-7;
+    }
+  }
+
+  ul {
+    @apply md:block absolute md:sticky p-4 md:p-0 w-full z-30 md:!bg-transparent;
+    background-color: #f5f5f5;
+  }
+
+  a {
+    &::before {
+      content: "";
+      @apply flex-shrink-0 inline-block rounded-full w-2 h-2 transition-colors align-middle mr-3;
+    }
+
+    &.active::before {
+      @apply bg-black;
+    }
+  }
+}
