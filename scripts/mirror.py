@@ -193,10 +193,15 @@ def mirror_storyblok():
                 urls.update(STORYBLOK_ASSETS + 'f/' + u for u in re.findall(r'"/storyblok/f/([^"\\]+)"', text))
                 urls.update(STORYBLOK_ASSETS + 'f/' + u for u in re.findall(r'="/storyblok/f/([^"]+)"', text))
     for url in sorted(urls):
+        rel = '/storyblok/' + url[len(STORYBLOK_ASSETS):]
         data = fetch_or_report(url, failures)
         if data is not None:
-            write('/storyblok/' + url[len(STORYBLOK_ASSETS):], data)
-    print('storyblok assets', len(urls) - len(failures))
+            write(rel, data)
+        else:
+            # A file Storyblok no longer serves is broken on the live site too
+            # (e.g. aww.png in the home story), so it isn't fatal.
+            failures.remove(url)
+    print('storyblok assets', len(urls))
 
     # Point the saved pages at the local copies (no-op if already done).
     for root, _, files in os.walk(SITE):
