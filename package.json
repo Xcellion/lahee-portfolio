@@ -11,9 +11,7 @@
     "@react-spring/three": "^10.0.3",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
-    "@storyblok/react": "^5.4.21",
     "@use-gesture/react": "^10.3.1",
-    "axios": "^1.13.4",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
     "framer-motion": "^12.29.2",
@@ -28,10 +26,10 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.2.4",
     "react-lottie": "^1.2.10",
-    "request": "^2.88.2",
     "swr": "^2.4.0",
     "three": "^0.182.0",
-    "unstated-next": "^1.1.0"
+    "unstated-next": "^1.1.0",
+    "yaml": "2.8.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.23",
@@ -39,7 +37,6 @@
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "@types/react-lottie": "^1.2.10",
-    "@types/request": "^2.48.13",
     "@types/three": "^0.182.0",
     "autoprefixer": "^10.4.24",
     "babel-runtime": "^6.26.0",

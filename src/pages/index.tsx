@@ -6,15 +6,14 @@ import Partner from '@/views/home/partner'
 import Start from '@/views/layout/start'
 
 import Loading from '@/components/loading/loading'
-import { getAllWorks, getHomeWorks, THomeWorks } from '@/data/storyblok'
-import useSWR from 'swr'
+import { getAllWorks, getHomeWorks } from '@/data/content'
 import Purpose from '@/views/home/purpose'
 import Skills from '@/views/home/skills'
 import Menu from '@/views/home/menu'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import InView from '@/components/in-view'
-import { TWorksData } from '@/data/works'
+import { THomeWorks, TWorksData } from '@/data/works'
 import Header from '@/views/layout/header'
 import Footer from '@/views/layout/footer'
 
@@ -23,9 +22,7 @@ type Props = {
   homeData: THomeWorks[]
 }
 
-export default function Home({ workData, homeData }: Props) {
-  const { data } = useSWR('/home', getHomeWorks, { fallbackData: homeData })
-  const { data: worksData } = useSWR('/works', getAllWorks, { fallbackData: workData })
+export default function Home({ workData: worksData, homeData: data }: Props) {
   const [ inViewContent, setInViewContent ] = useState<'about' | 'contact'>('about')
 
   return (
@@ -83,6 +80,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: { workData, homeData },
-    revalidate: 10,
   }
 }

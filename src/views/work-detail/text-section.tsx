@@ -1,5 +1,5 @@
 import styles from './work-detail.module.scss'
-import { StoryblokRichText } from '@storyblok/react'
+import RichText from '@/components/rich-text'
 
 type Props = {
   title: string
@@ -16,7 +16,7 @@ export default function TextSection({
       {
         !!doc && (
           <div className={`${styles.lead} ${styles.richText}`}>
-            <StoryblokRichText doc={doc} />
+            <RichText doc={doc} />
           </div>
         )
       }

@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next'
-import useSWR from 'swr'
 import Works from '@/views/works'
-import { getAllWorks } from '@/data/storyblok'
+import { getAllWorks } from '@/data/content'
 import Loading from '@/components/loading/loading'
 import { TWorksData } from '@/data/works'
 import Start from '@/views/layout/start'
@@ -14,8 +13,7 @@ type Props = {
   workData: TWorksData[]
 }
 
-export default function WorksPage({ workData }: Props) {
-  const { data, error } = useSWR('/works', getAllWorks, { fallbackData: workData })
+export default function WorksPage({ workData: data }: Props) {
 
   return (
     <>
@@ -43,6 +41,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: { workData: data },
-    revalidate: 10,
   }
 }

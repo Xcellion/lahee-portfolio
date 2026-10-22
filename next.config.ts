@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // A fully static site (out/), served by GitHub Pages.
+  output: 'export',
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   turbopack: {
     root: process.cwd(),
     rules: {
@@ -11,16 +14,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'a-us.storyblok.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 's3.amazonaws.com',
-      },
-    ],
+    unoptimized: true,
   },
 }
 

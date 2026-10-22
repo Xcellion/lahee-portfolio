@@ -1,3 +1,10 @@
+export type THomeWorks = {
+  src: string
+  title: string
+  subTitle?: string
+  href: string
+}
+
 export type TWorksData = {
   order: number
   title: string

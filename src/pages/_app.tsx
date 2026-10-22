@@ -5,6 +5,7 @@ import GLBackground from '@/components/gl'
 import { DefaultSeo } from 'next-seo'
 import useMomentumScroll from '@/hooks/momentum-scroll'
 import useRouteHistory from '@/hooks/router-history'
+import { withBasePath } from '@/utils/base-path'
 
 const OG_DESCRIPTION = 'NYC-based Product Designer & Art Director specializing in AI, SaaS, and interactive experiences. I craft user-centered, high-impact digital solutions across B2B and B2C, bridging product strategy, design systems, and brand direction.'
 
@@ -22,15 +23,15 @@ function MyApp({ Component, pageProps }: AppProps) {
             title: 'Lahee Hong',
             description: OG_DESCRIPTION,
             images: [
-              { url: '/og.png' },
+              { url: withBasePath('/og.png') },
             ],
           }}
         twitter={{
             cardType: 'summary_large_image',
           }}
         additionalLinkTags={[
-          { rel: 'icon', href: '/favicon.png' },
-          { rel: 'icon', href: '/favicon1024.png', sizes: '1024x1024' },
+          { rel: 'icon', href: withBasePath('/favicon.png') },
+          { rel: 'icon', href: withBasePath('/favicon1024.png'), sizes: '1024x1024' },
         ]}
       />
       <GLBackground />
