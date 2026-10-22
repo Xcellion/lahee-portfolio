@@ -146,7 +146,8 @@ def mirror_site():
         write('/404.html', localize_html(e.read().decode()))
 
     for p in ('/favicon.png', '/favicon1024.png', '/og.png',
-              '/_next/static/%s/_buildManifest.js' % build_id, '/_next/static/%s/_ssgManifest.js' % build_id):
+              '/_next/static/%s/_buildManifest.js' % build_id, '/_next/static/%s/_ssgManifest.js' % build_id,
+              '/_next/static/%s/_clientMiddlewareManifest.json' % build_id):
         want(p)
     while queue:
         path = queue.pop()
