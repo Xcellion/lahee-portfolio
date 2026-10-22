@@ -1,0 +1,53 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      # Resized images only need making once; later builds only add new ones.
+      - uses: actions/cache@v4
+        with:
+          path: public/_img
+          key: images-${{ hashFiles('content/**/*.png', 'content/**/*.jpg', 'content/**/*.jpeg', 'content/**/*.webp', 'scripts/build-images.mjs') }}
+          restore-keys: images-
+      - uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: next-${{ hashFiles('yarn.lock') }}-${{ github.sha }}
+          restore-keys: next-${{ hashFiles('yarn.lock') }}-
+      # With a custom domain (public/CNAME) the site lives at the domain root;
+      # otherwise Pages serves it under /<repo-name>/.
+      - name: Build
+        run: |
+          if [ -f public/CNAME ]; then base=""; else base="/${GITHUB_REPOSITORY#*/}"; fi
+          NEXT_PUBLIC_BASE_PATH="$base" yarn build
+          touch out/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+      - id: deployment
+        uses: actions/deploy-pages@v4

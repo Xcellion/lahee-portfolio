@@ -1,64 +1,8 @@
 {
   "featured": [
-    {
-      "work": "Sothebys",
-      "title": "Sotheby's",
-      "subTitle": "Led the UX/UI design lifecycle at Sotheby’s, integrating user research to drive the strategic roadmap and enhance digital experiences in the luxury market.",
-      "image": "/works/Sothebys/013_1.png"
-    },
-    {
-      "work": "tokyo-disney-resort-app",
-      "title": "Tokyo Disney Resort App",
-      "subTitle": "Set a new standard for localized digital experiences with 5M+ downloads and enhanced engagement.",
-      "image": "/works/tokyo-disney-resort-app/004_1.png"
-    },
-    {
-      "work": "ana-mileage-club-app",
-      "title": "ANA Mileage Club App",
-      "subTitle": "Drove 200% activation growth and 1M+ downloads, enhancing engagement and loyalty.",
-      "image": "/works/ana-mileage-club-app/003_1.png"
-    },
-    {
-      "work": "teamlab-art-story-of-the-forest",
-      "title": "teamLab Art Story of the Forest",
-      "subTitle": "Designed an interactive app for Story of the Forest, enhancing engagement for 8M+ visitors over 8 years.",
-      "image": "/works/teamlab-art-story-of-the-forest/001_1.png"
-    },
-    {
-      "work": "ana-mileage-club-app",
-      "title": "ANA\nMileage\nClub\nApp",
-      "subTitle": "As a Senior Product Designer at teamLab, I led the ANA Mileage Club app design, boosting engagement, convenience, and loyalty, with a 200% activation increase and 1M+ downloads.",
-      "image": "/home/top-004_ana.png"
-    },
-    {
-      "work": "will-tap",
-      "title": "Will TAP",
-      "subTitle": "As Senior Product Designer for Will TAP, I developed a smart home app for Proud apartments in Japan, achieving 80% adoption with an intuitive interface and advanced convenience features.",
-      "image": "/home/top-006_willtap.png"
-    },
-    {
-      "work": "shiseido-ginza-six-store",
-      "title": "SHISEIDO\nGINZA\nSIX store",
-      "subTitle": "I led the UX/UI design for Shiseido’s Interactive Digital Interface at GINZA SIX, creating an interactive beauty experience that redefined in-store engagement.",
-      "image": "/home/top-007_shiseido.png"
-    },
-    {
-      "work": "coe",
-      "title": "coe",
-      "subTitle": "As Lead Product Designer for coe, I crafted its brand and UX/UI, enabling AI-driven human rights risk analysis to empower workers and transform corporate behavior.",
-      "image": "/home/top-008_coe-1.png"
-    },
-    {
-      "work": "fight-of-dreams",
-      "title": "FLIGHT OF\nDREAMS",
-      "subTitle": "I led the UX/UI design and project management for Flight of Dreams, a 2.5-year aviation exhibition with 4M+ visitors and 3M+ app downloads, redefining the airport experience.",
-      "image": "/home/top-009_flighit.png"
-    },
-    {
-      "work": "tokyo-disney-resort-app",
-      "title": "Tokyo\nDisney\nResort\nApp",
-      "subTitle": "As the Lead Designer, I integrated Disney’s iconic brand with Japanese user preferences through thoughtful UX/UI design and art direction, achieving over 5M downloads, enhancing user engagement, and setting a new standard for localized digital experiences.",
-      "image": "/home/top-010_tokyo-disney-resort-app.png"
-    }
+    "Sothebys",
+    "tokyo-disney-resort-app",
+    "ana-mileage-club-app",
+    "teamlab-art-story-of-the-forest"
   ]
 }

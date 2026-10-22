@@ -1,8 +1,7 @@
 // import WorksItem from './works-item'
 import InView from '@/components/in-view'
 import ListItem from '../works/item'
-import { THomeWorks, TWorkSummary } from '@/data/works'
-import { useMemo } from 'react'
+import { TWorkSummary } from '@/data/works'
 // import Image from 'next/image'
 // import { useCallback, useRef, useState } from 'react'
 // import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
@@ -11,23 +10,10 @@ import { useMemo } from 'react'
 // import clsx from 'clsx'
 
 type Props = {
-  workData: TWorkSummary[]
-  homeData: THomeWorks[]
+  works: TWorkSummary[]
 }
 
-export default function Works({ workData, homeData }: Props) {
-  const list = useMemo(() => {
-    const data: TWorkSummary[] = []
-    for (let i = 0; i < homeData.length; i++) {
-      const work = workData?.find((work) => work.slug === homeData[i].href.replace('works/', ''))
-      if (!work) {
-        continue
-      }
-      data.push(work)
-    }
-    return data
-  }, [ workData, homeData ])
-
+export default function Works({ works: list }: Props) {
   return (
     <div className="container-lg mb-32 md:mb-40 pt-16 md:pt-40">
       <ul className="flex flex-wrap gap-x-20 gap-y-12 md:gap-y-20">

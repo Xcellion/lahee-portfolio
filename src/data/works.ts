@@ -1,10 +1,3 @@
-export type THomeWorks = {
-  src: string
-  title: string
-  subTitle?: string
-  href: string
-}
-
 export type TWorksData = {
   order: number
   title: string
@@ -26,6 +19,8 @@ export type TWorksData = {
   solutionImages: string[]
   impactAndLearning: any
   impactAndLearningImage: string
+  // Width and height of each of this work's images, by src.
+  imageSizes: Record<string, number[]>
 }
 
 // What the home and works list pages need from each work.

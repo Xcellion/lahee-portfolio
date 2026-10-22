@@ -5,30 +5,29 @@ import Partner from '@/views/home/partner'
 // import Imagination from '@/views/home/imagination'
 import Start from '@/views/layout/start'
 
-import { getHomeWorks, getWorkSummaries } from '@/data/content'
+import { getFeaturedWorks } from '@/data/content'
 import Purpose from '@/views/home/purpose'
 import Skills from '@/views/home/skills'
 import Menu from '@/views/home/menu'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import InView from '@/components/in-view'
-import { THomeWorks, TWorkSummary } from '@/data/works'
+import { TWorkSummary } from '@/data/works'
 import Header from '@/views/layout/header'
 import Footer from '@/views/layout/footer'
 
 type Props = {
-  workData: TWorkSummary[]
-  homeData: THomeWorks[]
+  featured: TWorkSummary[]
 }
 
-export default function Home({ workData: worksData, homeData: data }: Props) {
+export default function Home({ featured }: Props) {
   const [ inViewContent, setInViewContent ] = useState<'about' | 'contact'>('about')
 
   return (
     <>
       <Menu inViewContent={inViewContent} onClick={setInViewContent} />
       {
-        !!data && (
+        !!featured && (
           <>
             <Header />
             <motion.div onViewportEnter={() => setInViewContent('about')}>
@@ -37,7 +36,7 @@ export default function Home({ workData: worksData, homeData: data }: Props) {
               </InView>
             </motion.div>
             <InView mount once delay={0.9}>
-              <Works homeData={data} workData={worksData} />
+              <Works works={featured} />
             </InView>
             <InView>
               <Partner />
@@ -67,16 +66,7 @@ export default function Home({ workData: worksData, homeData: data }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const homeData = await getHomeWorks()
-  const workData = await getWorkSummaries()
-
-  if (!homeData || !workData) {
-    return {
-      notFound: true,
-    }
-  }
-
   return {
-    props: { workData, homeData },
+    props: { featured: await getFeaturedWorks() },
   }
 }

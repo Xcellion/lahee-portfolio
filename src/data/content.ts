@@ -2,17 +2,21 @@
  * Reads the site's content from content/ at build time.
  *
  *   content/site.json        email, LinkedIn and resume links
- *   content/home.json        the featured works on the home page
- *   content/works/<slug>.md  one file per work; images in public/works/<slug>/
+ *   content/home.json        the works featured on the home page
+ *   content/works/<slug>.md  one file per work; its images in content/works/<slug>/
  */
 import fs from 'fs'
 import path from 'path'
 import { parse as parseYaml } from 'yaml'
 import { parseMarkdown } from './markdown'
-import { THomeWorks, TWorkSummary, TWorksData } from './works'
+import { TWorkSummary, TWorksData } from './works'
 import { withBasePath } from '@/utils/base-path'
 
 const CONTENT = path.join(process.cwd(), 'content')
+
+// Written by scripts/build-images.mjs, which runs before every build.
+const IMAGE_SIZES: Record<string, number[]> = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), 'src/data/image-sizes.json'), 'utf8'))
 
 // Body headings in each work file, in page order.
 export const SECTIONS = {
@@ -40,7 +44,14 @@ function readWork(file: string): TWorksData {
   if (!match) throw new Error(`${file}: missing --- front matter ---`)
   const meta = parseYaml(match[1])
   const sections = splitSections(match[2])
-  const image = (name: string) => name ? withBasePath(`/works/${slug}/${name}`) : ''
+  const imageSizes: Record<string, number[]> = {}
+  const image = (name: string) => {
+    if (!name) return ''
+    const key = `/works/${slug}/${name}`
+    if (!IMAGE_SIZES[key]) throw new Error(`${file}: no image content${key}`)
+    imageSizes[withBasePath(key)] = IMAGE_SIZES[key]
+    return withBasePath(key)
+  }
   const images = (names?: string[]) => (names || []).map(image)
 
   return {
@@ -64,6 +75,7 @@ function readWork(file: string): TWorksData {
     solutionImages: images(meta.solutionImages),
     impactAndLearning: parseMarkdown(sections.impactAndLearning || ''),
     impactAndLearningImage: image(meta.impactAndLearningImage),
+    imageSizes,
   }
 }
 
@@ -89,9 +101,13 @@ export async function getWorkDetail(slug: string) {
   return (await getAllWorks()).find(d => d.slug === slug) || null
 }
 
-export async function getHomeWorks(): Promise<THomeWorks[]> {
-  const { featured } = JSON.parse(fs.readFileSync(path.join(CONTENT, 'home.json'), 'utf8'))
-  return featured.map((item: { work: string, title: string, subTitle?: string, image: string } | null) => item
-    ? { href: `works/${item.work}`, src: withBasePath(item.image), title: item.title, subTitle: item.subTitle || '' }
-    : { src: '', title: '', href: '' })
+// The works shown on the home page, in order.
+export async function getFeaturedWorks(): Promise<TWorkSummary[]> {
+  const { featured }: { featured: string[] } = JSON.parse(fs.readFileSync(path.join(CONTENT, 'home.json'), 'utf8'))
+  const works = await getWorkSummaries()
+  return featured.map((slug) => {
+    const work = works.find((w) => w.slug === slug)
+    if (!work) throw new Error(`content/home.json: no work content/works/${slug}.md`)
+    return work
+  })
 }
