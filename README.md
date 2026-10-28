@@ -167,18 +167,21 @@ Other things that keep it light:
 
 ## Custom domain
 
-The site is published at `https://xcellion.github.io/lahee-portfolio/` until
-the domain moves. To move `lahee-hong.design` here:
+The site is served at `https://lahee-hong.design/`. The file `public/CNAME`
+holds the domain; while it exists, the workflow builds the site for the domain
+root. (Without it, Pages serves the site under `/lahee-portfolio/` on
+`xcellion.github.io`.)
 
-1. Add a file `public/CNAME` containing just `lahee-hong.design` and push it.
-   The workflow then builds the site for the domain root instead of
-   `/lahee-portfolio/`.
-2. In the repo's **Settings → Pages**, set the custom domain to
-   `lahee-hong.design`.
-3. At MuuMuu Domain, point the domain at GitHub Pages: `A` records for the
-   bare domain to `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and
-   `185.199.111.153`, and a `CNAME` record for `www` to `xcellion.github.io`.
-4. Once GitHub shows the certificate is ready, tick **Enforce HTTPS**.
+DNS is managed at MuuMuu Domain:
+
+- `A` records for the bare domain: `185.199.108.153`, `185.199.109.153`,
+  `185.199.110.153`, `185.199.111.153`
+- `AAAA` records for the bare domain: `2606:50c0:8000::153`,
+  `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+- `CNAME` record for `www` to `xcellion.github.io`
+
+The repo's **Settings → Pages** has the custom domain set to
+`lahee-hong.design` with **Enforce HTTPS** ticked.
 
 GitHub Pages for a private repo needs a paid GitHub plan (Pro or higher) on
 the account that owns it, and **Settings → Pages → Source** must be set to
